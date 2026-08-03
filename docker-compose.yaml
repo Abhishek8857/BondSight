@@ -1,0 +1,16 @@
+services:
+  proki:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pro-ki:latest
+    network_mode: host
+    privileged: true
+    container_name: proki
+    environment:
+      - DISPLAY=${DISPLAY}
+      - XAUTHORITY=/root/.Xauthority
+    stdin_open: true
+    tty: true
+    
+    
