@@ -7,10 +7,19 @@ services:
     network_mode: host
     privileged: true
     container_name: proki
+    gpus: all
+    shm_size: '2gb'
     environment:
       - DISPLAY=${DISPLAY}
       - XAUTHORITY=/root/.Xauthority
+    devices:
+      - /dev/video0:/dev/video0 
     stdin_open: true
     tty: true
-    
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${HOME}/.Xauthority:/root/.Xauthority:ro
+      - .:/proki                    
+      - ./data:/data                
+      - ./models:/models   
     
