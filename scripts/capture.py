@@ -11,6 +11,7 @@ def main():
     # Add arguments 
     parser.add_argument("--out", default="data/raw", help="folder location to store captured images")
     parser.add_argument("--tag", default="capture", help="prefix for filenames")
+    parser.add_argument("--count", type=int, required=True, default=0, help="start from a saved number")
     parser.add_argument("--width", type=int, default=1280)
     parser.add_argument("--height", type=int, default=720)
 
@@ -28,7 +29,7 @@ def main():
     
     print("Streaming. SPACE/ENTER to save, press q to exit")
     
-    saved = 0
+    saved = args.count
     try:
         while True:
             frames = pipeline.wait_for_frames()
@@ -43,8 +44,7 @@ def main():
             key = cv2.waitKey(1) & 0xFF
 
             if key in (ord(" "), 13):  # space or enter
-                ts = time.strftime("%Y%m%d_%H%M%S")
-                fname = f"{args.tag}_{saved:04d}"
+                fname = f"{args.tag}_{saved:03d}"
                 cv2.imwrite(str(output_dir / f"{fname}.jpg"), color_image)
                 saved += 1
                 print(f"saved {fname} ({saved} total)")
