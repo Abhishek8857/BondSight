@@ -7,5 +7,6 @@ imgsz: 640
 batch: 16
 patience: 20            
 device: 0                
+save: True
 project: /proki/models/train
 name: exp001
